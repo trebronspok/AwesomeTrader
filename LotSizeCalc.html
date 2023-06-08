@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lot Size Calculator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+	  font-family: Arial, sans-serif;
+      background-color: #212529;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .btn-calculate {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+
+    .result-frame {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+    }
+
+    .result-frame label {
+      display: block;
+      font-weight: bold;
+    }
+
+    #lotSizeResult, #tradeSizeResult, #moneyAtRiskResult {
+      font-size: 24px;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+	/* Footer styles */
+    .footer {
+      background-color: #343a40; /* Dark theme footer background color */
+      color: #fff; /* Text color for footer */
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var openPriceInput = document.getElementById("openPrice");
+      var stopLossPriceInput = document.getElementById("stopLossPrice");
+      var accountBalanceInput = document.getElementById("accountBalance");
+      var contractSizeInput = document.getElementById("contractSize");
+      var riskPercentageInput = document.getElementById("riskPercentage");
+
+      var resultElements = {
+        lotSize: document.getElementById("lotSizeResult"),
+        tradeSize: document.getElementById("tradeSizeResult"),
+        moneyAtRisk: document.getElementById("moneyAtRiskResult")
+      };
+
+      function calculateLotSize() {
+        var openPrice = parseFloat(openPriceInput.value);
+        var stopLossPrice = parseFloat(stopLossPriceInput.value);
+        var accountBalance = parseFloat(accountBalanceInput.value);
+        var contractSize = parseFloat(contractSizeInput.value);
+        var riskPercentage = parseFloat(riskPercentageInput.value);
+
+        var riskAmount = accountBalance * (riskPercentage / 100);
+        var pipValue = (openPrice - stopLossPrice) * contractSize;
+        var lotSize = riskAmount / pipValue;
+        var tradeSize = lotSize * contractSize;
+        var moneyAtRisk = pipValue * lotSize;
+
+        resultElements.lotSize.innerHTML = lotSize.toFixed(5);
+        resultElements.tradeSize.innerHTML = tradeSize.toFixed(5);
+        resultElements.moneyAtRisk.innerHTML = moneyAtRisk.toFixed(5);
+      }
+
+      openPriceInput.addEventListener("input", calculateLotSize);
+      stopLossPriceInput.addEventListener("input", calculateLotSize);
+      accountBalanceInput.addEventListener("input", calculateLotSize);
+      contractSizeInput.addEventListener("input", calculateLotSize);
+      riskPercentageInput.addEventListener("input", calculateLotSize);
+
+      calculateLotSize(); // Call the function initially to calculate the results
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Lot Size Calculator</h1>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form>
+          <div class="form-group">
+            <label for="openPrice">Open Price:</label>
+            <input type="number" class="form-control" id="openPrice" step="any" required>
+          </div>
+
+          <div class="form-group">
+            <label for="stopLossPrice">Stop Loss Price:</label>
+            <input type="number" class="form-control" id="stopLossPrice" step="any" required>
+          </div>
+
+          <div class="form-group">
+            <label for="accountBalance">Account Balance:</label>
+            <input type="number" class="form-control" id="accountBalance" step="any" required>
+          </div>
+
+          <div class="form-group">
+            <label for="contractSize">Contract Size(Units per Lot):</label>
+            <input type="number" class="form-control" id="contractSize" step="any" required>
+          </div>
+
+          <div class="form-group">
+            <label for="riskPercentage">Risk Percentage:</label>
+            <input type="number" class="form-control" id="riskPercentage" step="any" required>
+          </div>
+
+          <button type="button" class="btn btn-calculate btn-block">Calculate Lot Size</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-frame">
+    <label>Lot Size:</label>
+    <div id="lotSizeResult"></div>
+    <label>Trade Size (Units):</label>
+    <div id="tradeSizeResult"></div>
+    <label>Money at Risk ($):</label>
+    <div id="moneyAtRiskResult"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Awesome Trader Lot Size Calculator &copy; 2023. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
