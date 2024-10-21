@@ -2,10 +2,10 @@ import streamlit as st
 
 # Define the point values for each symbol
 point_values = {
-    "Step Index 100": 0.01,
-    "Volatility Index 10": 0.01,
-    "Volatility Index 25": 0.01,
-    "Volatility Index 50": 0.01,
+    "Step Index 100": 0.1,
+    "Volatility Index 10": 0.001,
+    "Volatility Index 25": 0.001,
+    "Volatility Index 50": 0.0001,
     "Volatility Index 75": 0.01,
     "Volatility Index 100": 0.01,
     "Volatility Index 10 1s": 0.01,
