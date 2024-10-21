@@ -41,27 +41,28 @@ entry_price = st.number_input("Entry Price", min_value=0.00, step=0.01)
 # Stop Loss Price
 stop_loss_price = st.number_input("Stop Loss Price", min_value=0.00, step=0.01)
 
+if st.button("Calculate"):
 # Calculate Stop Loss Points only if entry_price and stop_loss_price are not zero
-if entry_price != 0 and stop_loss_price != 0:
-    stop_loss_points = abs(entry_price - stop_loss_price)
-    st.subheader(f"Stop Loss Points: {stop_loss_points}")
+    if entry_price != 0 and stop_loss_price != 0:
+        stop_loss_points = abs(entry_price - stop_loss_price)
+        st.subheader(f"Stop Loss Points: {stop_loss_points}")
 
-    # Calculate Lot Size only if stop_loss_points and risk_amount are not zero
-    if stop_loss_points != 0 and risk_amount != 0:
-        point_value = point_values[symbol]
-        lot_size = (risk_amount/100) / (stop_loss_points * point_value)
+        # Calculate Lot Size only if stop_loss_points and risk_amount are not zero
+        if stop_loss_points != 0 and risk_amount != 0:
+            point_value = point_values[symbol]
+            lot_size = (risk_amount/100) / (stop_loss_points * point_value)
 
-        # Format Lot Size to 2 decimal places
-        lot_size_formatted = "{:.5f}".format(lot_size)
-        st.header(f"Lot Size: {lot_size_formatted}")
+            # Format Lot Size to 2 decimal places
+            lot_size_formatted = "{:.5f}".format(lot_size)
+            st.header(f"Lot Size: {lot_size_formatted}")
 
-        # Convert Lot Size to scientific notation
-        #lot_size_scientific = "{:.2e}".format(lot_size)
-        #st.write(f"Lot Size (Scientific Notation): {lot_size_scientific}")
+            # Convert Lot Size to scientific notation
+            #lot_size_scientific = "{:.2e}".format(lot_size)
+            #st.write(f"Lot Size (Scientific Notation): {lot_size_scientific}")
+        else:
+            st.write("Stop Loss Points and Risk Amount cannot be zero. Please enter valid values.")
     else:
-        st.write("Stop Loss Points and Risk Amount cannot be zero. Please enter valid values.")
-else:
-    st.write("Entry Price and Stop Loss Price cannot be zero. Please enter valid values.")
+        st.write("Entry Price and Stop Loss Price cannot be zero. Please enter valid values.")
 
 
 # Convert Lot Size to scientific notation
