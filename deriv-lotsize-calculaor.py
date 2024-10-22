@@ -33,13 +33,13 @@ symbol = st.selectbox("Select Symbol", list(point_values.keys()))
 position_type = st.selectbox("Select Position Type", ["Buy", "Sell"])
 
 # Risk Amount
-risk_amount = st.number_input("Risk Amount", min_value=0.00, step=0.01)
+risk_amount = st.number_input("Risk Amount", min_value=0.00, step=0.00001, format="%.5f")
 
 # Entry Price
-entry_price = st.number_input("Entry Price", min_value=0.00, step=0.01)
+entry_price = st.number_input("Entry Price", min_value=0.00, step=0.00001, format="%.5f")
 
 # Stop Loss Price
-stop_loss_price = st.number_input("Stop Loss Price", min_value=0.00, step=0.01)
+stop_loss_price = st.number_input("Stop Loss Price", min_value=0.00, step=0.00001, format="%.5f")
 
 if st.button("Calculate"):
 # Calculate Stop Loss Points only if entry_price and stop_loss_price are not zero
