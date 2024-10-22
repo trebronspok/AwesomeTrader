@@ -33,7 +33,7 @@ symbol = st.selectbox("Select Symbol", list(point_values.keys()))
 position_type = st.selectbox("Select Position Type", ["Buy", "Sell"])
 
 # Risk Amount
-risk_amount = st.number_input("Risk Amount", min_value=0.00, step=0.00001, format="%.5f")
+risk_amount = st.number_input("Risk Amount", min_value=0.00, step=0.00001, format="%.2f")
 
 # Entry Price
 entry_price = st.number_input("Entry Price", min_value=0.00, step=0.00001, format="%.5f")
